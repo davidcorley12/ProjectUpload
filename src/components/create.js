@@ -6,14 +6,14 @@ export class Create extends React.Component {
     constructor(){
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onChangeBookTitle = this.onChangeBookTitle.bind(this);
-        this.onChangeBookCover = this.onChangeBookCover.bind(this);
-        this.onChangeBookAuthor = this.onChangeBookAuthor.bind(this);
+        this.onChangeMovieTitle = this.onChangeMovieTitle.bind(this);
+        this.onChangeMoviePoster = this.onChangeMoviePoster.bind(this);
+        this.onChangeMovieDirector = this.onChangeMovieDirector.bind(this);
         
         this.state = {
             title:'',
-            cover:'',
-            author:''
+            poster:'',
+            director:''
         }
     }
 
@@ -21,75 +21,75 @@ export class Create extends React.Component {
         e.preventDefault();
         console.log(`Button clicked 
         ${this.state.title},
-        ${this.state.cover},
-        ${this.state.author}`);
+        ${this.state.poster},
+        ${this.state.director}`);
 
-        const book ={
+        const movie ={
             title:this.state.title,
-            cover:this.state.cover,
-            author:this.state.author
+            poster:this.state.poster,
+            director:this.state.director
         }
 
-        axios.post('http://localhost:4000/api/books',book)
+        axios.post('http://localhost:4000/api/movies',movie)
         .then()
         .catch();
 
         this.setState({
             title:'',
-            cover:'',
-            author:''
+            poster:'',
+            director:''
         })
     }
 
-    onChangeBookTitle(e){
+    onChangeMovieTitle(e){
         this.setState({
             title:e.target.value
         })
     }
-    onChangeBookCover(e){
+    onChangeMoviePoster(e){
         this.setState({
-            cover:e.target.value
+            poster:e.target.value
         })
     }
-    onChangeBookAuthor(e){
+    onChangeMovieDirector(e){
         this.setState({
-            author:e.target.value
+            director:e.target.value
         })
     }
 
     render() {
         return (
             <div>
-                <h3>Hello from Create Component!</h3>
+                
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                        <label>Add Book Title: </label>
+                        <label>Add Movie Title: </label>
                         <input type="text"
                             className="form-control"
                             value={this.state.title}
-                            onChange={this.onChangeBookTitle}
+                            onChange={this.onChangeMovieTitle}
                         />
                     </div>
 
                     <div className="form-group">
-                        <label>Add Book Cover: </label>
+                        <label>Add Movie Poster: </label>
                         <input type="text"
                             className="form-control"
-                            value={this.state.cover}
-                            onChange={this.onChangeBookCover}
+                            value={this.state.poster}
+                            onChange={this.onChangeMoviePoster}
                         />
                     </div>
 
                     <div className="form-group">
-                        <label>Add Author: </label>
+                        <label>Add Director: </label>
                         <input type="text"
                             className="form-control"
-                            value={this.state.author}
-                            onChange={this.onChangeBookAuthor}
+                            value={this.state.director}
+                            onChange={this.onChangeMovieDirector}
                         />
                     </div>
 
-                    <input type="submit" value="Add Book" />
+                    <input type="submit" value="Add Movie" />
                 </form>
             </div>
         );

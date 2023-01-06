@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import {Read} from './components/read';
 import { Create } from './components/create';
+import { Link } from 'react-router-dom';
 import {
   BrowserRouter as Router,
   Routes,
@@ -22,11 +23,11 @@ class App extends React.Component {
       <div className="App">
         <Navbar bg="dark" variant="dark">
           <Container>
-            <Navbar.Brand href="/">Navbar</Navbar.Brand>
+            <Navbar.Brand href="/">Movie databases</Navbar.Brand>
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/read">Read</Nav.Link>
-              <Nav.Link href="/create">Create</Nav.Link>
+              <Nav.Link href="/read">Movies</Nav.Link>
+              <Nav.Link href="/create">Add submission</Nav.Link>
             </Nav>
           </Container>
         </Navbar>

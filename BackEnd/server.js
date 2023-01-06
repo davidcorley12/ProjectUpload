@@ -9,6 +9,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+const path = require('path');
+/*Use the server to host the single page application,joins the build to the server*/
+app.use(express.static(path.join(__dirname, '../build')));
+app.use('/static', express.static(path.join(__dirname, 'build//static')));
+
 const cors = require('cors');
 app.use(cors());
 app.use(function (req, res, next) {
@@ -24,42 +29,46 @@ app.use(function (req, res, next) {
 const mongoose = require('mongoose');
 main().catch(err => console.log(err));
 async function main() {
-  await mongoose.connect('mongodb+srv://admin:admin@cluster0.8taek.mongodb.net/?retryWrites=true&w=majority');
+  await mongoose.connect('mongodb+srv://admin:admin@movies.z2po1go.mongodb.net/test');
   // use `await mongoose.connect('mongodb://user:password@localhost:27017/test');` if your database has auth enabled
 }
 
-const bookSchema = new mongoose.Schema({
+const movieSchema = new mongoose.Schema({
   title: String,
-  cover: String,
-  author: String
+  poster: String,
+  director: String
 });
 
-const bookModel = mongoose.model('Bookssss', bookSchema);
+const movieModel = mongoose.model('Movies', movieSchema);
 
-app.post('/api/books',(req,res)=>{
+app.post('/api/movies',(req,res)=>{
   console.log(req.body);
 
-  bookModel.create({
+  movieModel.create({
     title: req.body.title,
-    cover:req.body.cover,
-    author:req.body.author
+    poster:req.body.poster,
+    director:req.body.director
   })
   
   res.send('Data Recieved');
 })
 
-app.get('/api/books', (req, res) => {
-  bookModel.find((error, data)=>{
+app.get('/api/movies', (req, res) => {
+  movieModel.find((error, data)=>{
     res.json(data);
   })
 })
 
-app.get('/api/book/:id', (req, res)=>{
+app.get('/api/movie/:id', (req, res)=>{
   console.log(req.params.id);
-  bookModel.findById(req.params.id,(error,data)=>{
+  movieModel.findById(req.params.id,(error,data)=>{
     res.json(data);
   })
 })
+
+app.get('*', (req,res) =>{
+  res.sendFile(path.join(__dirname+'/../build/index.html'));
+});
 
 
 app.listen(port, () => {
